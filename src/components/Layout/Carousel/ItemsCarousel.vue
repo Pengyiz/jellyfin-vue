@@ -98,6 +98,10 @@ export default Vue.extend({
       type: Number,
       default: 7000
     },
+    pageBackdrop: {
+      type: Boolean,
+      default: false
+    },
     swiperOptions: {
       type: Object as () => SwiperOptions,
       default: (): SwiperOptions => {
@@ -155,7 +159,9 @@ export default Vue.extend({
 
     const hash = this.getBlurhash(this.items[0], ImageType.Backdrop);
 
-    this.setBackdrop({ hash });
+    if (this.pageBackdrop) {
+      this.setBackdrop({ hash });
+    }
   },
   activated() {
     this.onSlideChange();
@@ -201,7 +207,9 @@ export default Vue.extend({
           ImageType.Backdrop
         ) || '';
 
-      this.setBackdrop({ hash });
+      if (this.pageBackdrop) {
+        this.setBackdrop({ hash });
+      }
     },
     onTouch(): void {
       this.isPaused = !this.isPaused;
